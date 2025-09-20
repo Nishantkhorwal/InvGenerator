@@ -41,7 +41,9 @@ export default function GetEntry() {
       const res = await fetch(`${API_BASE_URL}/api/entry/records?${params.toString()}`, {
         headers: {
           Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
         },
+        credentials: 'include'
       })
 
       const data = await res.json()

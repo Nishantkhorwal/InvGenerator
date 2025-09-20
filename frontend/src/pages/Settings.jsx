@@ -49,6 +49,9 @@ export default function Settings() {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
   },
+  credentials: 'include'
+  
+
 });
 
 if (!res.ok) throw new Error("Failed to fetch user info");
