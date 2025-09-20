@@ -25,9 +25,11 @@ const server = createServer(app);
 
 // CORS Configuration (Must be on Top)
 const allowedOrigins = [
+  "https://rofinfra.in",
+  "https://www.rofinfra.in",
   "http://localhost:5173",
-  "http://localhost:5174",
-  "https://rofinfra.in"
+  "http://localhost:5174"
+  
 ];
 
 app.use(cors({
