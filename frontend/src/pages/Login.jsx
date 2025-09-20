@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 
 export default function LoginPage() {
   const navigate = useNavigate()
-
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -34,6 +34,7 @@ export default function LoginPage() {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(formData),
       })
 
