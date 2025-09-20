@@ -193,8 +193,10 @@ export default function GetEntry() {
   try {
     const res = await fetch(`${API_BASE_URL}/api/entry/export?option=${exportOption}`, {
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
+      credentials: 'include'
     });
 
     if (!res.ok) throw new Error("Failed to export records");

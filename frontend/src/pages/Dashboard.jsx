@@ -31,7 +31,13 @@ export default function UnifiedDashboard() {
   const fetchPaymentData = async () => {
     setPaymentLoading(true)
     try {
-      const response = await fetch(`${API_BASE_URL}/api/payment/get`)
+      const response = await fetch(`${API_BASE_URL}/api/payment/get`,{
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        credentials: 'include'
+      })
       if (!response.ok) throw new Error("Failed to fetch payment data")
       const result = await response.json()
       setPaymentData(result || [])
@@ -56,8 +62,10 @@ export default function UnifiedDashboard() {
 
       const res = await fetch(`${API_BASE_URL}/api/entry/records?${params.toString()}`, {
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
+        credentials: 'include'
       })
 
       const data = await res.json()

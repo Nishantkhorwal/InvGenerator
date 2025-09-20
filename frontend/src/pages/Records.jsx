@@ -73,7 +73,13 @@ export default function RecordManagement() {
 
   const fetchRecords = async () => {
     try {
-      const response = await fetch('http://localhost:3002/api/record/get');
+      const response = await fetch('http://localhost:3002/api/record/get',{
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        credentials: 'include'
+      });
 
     if (!response.ok) {
     throw new Error('Failed to fetch records');
@@ -110,8 +116,10 @@ export default function RecordManagement() {
         const response = await fetch(`http://localhost:3002/api/record/edit/${editingId}`, {
         method: 'PUT',
         headers: {
-            'Content-Type': 'application/json',
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
+        credentials: 'include',
         body: JSON.stringify(formData),
         });
 
@@ -125,8 +133,10 @@ export default function RecordManagement() {
         const response = await fetch('http://localhost:3002/api/record/create', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
+        credentials: 'include',
         body: JSON.stringify(formData),
         });
 
@@ -186,6 +196,7 @@ export default function RecordManagement() {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
       },
+      credentials: 'include',
       body: JSON.stringify(payload),
     });
 
@@ -236,8 +247,10 @@ export default function RecordManagement() {
       const response = await fetch(`http://localhost:3002/api/record/delete/${deleteModal.recordId}`, {
         method: 'DELETE',
         headers: {
-          'Authorization': `Bearer ${token}`,
-        }
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        credentials: 'include'
       });
 
       if (!response.ok) {
