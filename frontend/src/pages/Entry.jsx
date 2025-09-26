@@ -22,18 +22,23 @@ export default function Entry() {
 
   // Handle input changes
   const handleChange = async (e) => {
-  const { name, files } = e.target;
-  if (name === "image" && files[0]) {
-    const options = {
-      maxSizeMB: 1,          // target max size
-      maxWidthOrHeight: 1024 // resize if bigger
-    };
+  const { name, value, files } = e.target;
+
+  if (name === "image" && files?.length > 0) {
     try {
+      const options = {
+        maxSizeMB: 1, // Target size
+        maxWidthOrHeight: 1024, // Resize if too large
+        useWebWorker: true,
+      };
       const compressedFile = await imageCompression(files[0], options);
       setFormData((prev) => ({ ...prev, image: compressedFile }));
     } catch (error) {
       console.error("Image compression failed:", error);
     }
+  } else {
+    // For normal text/number fields
+    setFormData((prev) => ({ ...prev, [name]: value }));
   }
 };
 
