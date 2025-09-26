@@ -56,7 +56,6 @@ export default function Entry() {
       const res = await fetch(`${API_BASE_URL}/api/entry/add`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
         credentials: 'include',
