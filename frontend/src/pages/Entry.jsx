@@ -1,4 +1,5 @@
 import { useState } from "react";
+import imageCompression from 'browser-image-compression';
 
 export default function Entry() {
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -20,14 +21,21 @@ export default function Entry() {
   const [notification, setNotification] = useState({ show: false, message: "", type: "success" });
 
   // Handle input changes
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    if (name === "image") {
-      setFormData((prev) => ({ ...prev, image: files[0] }));
-    } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
+  const handleChange = async (e) => {
+  const { name, files } = e.target;
+  if (name === "image" && files[0]) {
+    const options = {
+      maxSizeMB: 1,          // target max size
+      maxWidthOrHeight: 1024 // resize if bigger
+    };
+    try {
+      const compressedFile = await imageCompression(files[0], options);
+      setFormData((prev) => ({ ...prev, image: compressedFile }));
+    } catch (error) {
+      console.error("Image compression failed:", error);
     }
-  };
+  }
+};
 
   // Submit form
   const handleSubmit = async (e) => {
